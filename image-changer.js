@@ -2,7 +2,7 @@
 // const length = fs.readdirSync('/home/directory').length;
 // console.log(length);
 
-var num_of_photos = 34;
+var num_of_photos = 37;
 var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
 var photos =  [].concat(backup_photos);
 
