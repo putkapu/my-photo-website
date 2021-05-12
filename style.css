@@ -25,6 +25,7 @@ img {
   width:100%;
   cursor: pointer;
   vertical-align: top;
+  -webkit-tap-highlight-color: transparent;
 }
 footer {
   margin-top: 1vh;
@@ -34,16 +35,16 @@ footer {
 }
 .ig-icon {
     background: url('icons/instagram-brands.svg');
-    height: 15px;
-    width: 15px;
+    height: 3vh;
+    width: 3vh;
     display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
 }
 .linkedin-icon {
     background: url('icons/linkedin-brands.svg');
-    height: 15px;
-    width: 15px;
+    height: 3vh;
+    width: 3vh;
     display: inline-block;
     background-repeat: no-repeat;
     background-position: center;
