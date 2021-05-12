@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'MyHandwriting';
+    src: url('fonts/MyHandwriting-Regular.ttf');
+}
+body {
+  margin-top: 7vh;
+  margin-bottom: 6vh;
+  margin-right: 10vw;
+  margin-left: 10vw;
+}
+h1 {
+   font-family: 'MyHandwriting';
+  text-align: center;
+  font-size: 2.5em;
+  line-height: 0.5;
+}
+h2 {
+  text-align: center;
+  font-size: 12pt;
+  font-family: "MyHandwriting";
+}
+img {
+	object-fit: contain;
+	height: 80vh;
+  width:100%;
+  cursor: pointer;
+  vertical-align: top;
+}
+footer {
+  margin-top: 1vh;
+  margin-bottom: 8vh;
+  display: flex;
+  justify-content: center;
+}
+.ig-icon {
+    background: url('icons/instagram-brands.svg');
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.linkedin-icon {
+    background: url('icons/linkedin-brands.svg');
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+}
