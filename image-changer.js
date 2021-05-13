@@ -1,7 +1,7 @@
 var fs = require('fs');
 var files = fs.readdirSync('photos/');
 
-console.log(photos);
+console.log(files);
 
 var num_of_photos = 37;
 var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
