@@ -1,6 +1,7 @@
-// const fs = require('fs');
-// const length = fs.readdirSync('/home/directory').length;
-// console.log(length);
+var fs = require('fs');
+var files = fs.readdirSync('photos/');
+
+console.log(photos);
 
 var num_of_photos = 37;
 var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
