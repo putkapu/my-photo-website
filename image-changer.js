@@ -16,5 +16,6 @@ function changeImage() {
 
 	var n = photos[Math.floor(Math.random()*photos.length)];
 	removeElement(photos, n);
+	console.log(`photo ${n} chosen`);
 	document.getElementById("slideshow").src = `photos/${n}.jpg`;
 };
