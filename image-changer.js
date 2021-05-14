@@ -1,6 +1,7 @@
-var num_of_photos = 42;
+var num_of_photos = 3;
 var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
 var photos =  [].concat(backup_photos);
+var round = 1;
 removeElement(photos, 1); // remove cover photo from first round
 
 function removeElement(array, value) {
@@ -13,6 +14,8 @@ function changeImage() {
 
 	if (photos.length == 0) {
 		photos = [].concat(backup_photos);
+		console.log(`round ${round} completed`);
+		round += 1;
 	};
 
 	var photo_number = photos[Math.floor(Math.random()*photos.length)];
