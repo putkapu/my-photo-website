@@ -2,7 +2,7 @@ var num_of_photos = 42;
 var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
 var photos =  [].concat(backup_photos);
 var round = 1;
-// removeElement(photos, 1); // remove cover photo from first round
+removeElement(photos, 1); // remove cover photo from first round
 
 function removeElement(array, value) {
 	const index = array.indexOf(value);

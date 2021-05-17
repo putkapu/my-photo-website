@@ -19,6 +19,10 @@ h2 {
   font-size: 12pt;
   font-family: "MyHandwriting";
 }
+a { 
+  color: black;
+  text-decoration: none;
+}
 img {
 	object-fit: contain;
 	height: 80vh;
