@@ -23,3 +23,11 @@ function changeImage() {
 	console.log(`photo ${photo_number} chosen`);
 	document.getElementById("slideshow").src = `photos/${photo_number}.jpg`;
 };
+
+function stopAnimation() {
+	var element = document.getElementById("slideshow");
+	if (!element.classList.contains('paused'))
+    {
+        element.classList.add('paused');
+    }
+};
