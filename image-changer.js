@@ -25,9 +25,10 @@ function changeImage() {
 };
 
 function stopAnimation() {
-	var element = document.getElementById("slideshow");
+	var element = document.getElementById("aboutHeader");
 	if (!element.classList.contains('paused'))
     {
         element.classList.add('paused');
+        // element.style.property.animationPlayState = "paused";
     }
 };
