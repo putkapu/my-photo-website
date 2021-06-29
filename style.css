@@ -1,6 +1,7 @@
 @font-face {
     font-family: 'MyHandwriting';
     src: url('fonts/MyHandwriting-Regular.ttf');
+    font-display: block;
 }
 body {
   margin-top: 7vh;
