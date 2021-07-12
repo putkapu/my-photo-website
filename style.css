@@ -35,7 +35,6 @@ a {
 }
 
 .myPhoto {
-  display: block;
 	object-fit: contain;
 	max-height: 80vh;
   width:100%;
@@ -44,6 +43,19 @@ a {
   -webkit-tap-highlight-color: transparent;
   position: relative;
   top: 2.2vh;
+}
+
+.photoMobile {
+    display: none;
+  }
+
+@media only screen and (max-width: 800px) {
+  .photoWeb {
+    display: none;
+  }
+  .photoMobile {
+    display: block;
+  }
 }
 
 .ig {

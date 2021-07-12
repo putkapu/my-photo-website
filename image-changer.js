@@ -9,8 +9,8 @@ function removeElement(array, value) {
 	array.splice(index, 1);
 };
 
-function changeImage() {
-	document.getElementById("slideshow").src = ``;
+function changeImageWeb() {
+	document.getElementById("slideshow-web").src = ``;
 
 	if (photos.length == 0) {
 		photos = [].concat(backup_photos);
@@ -21,7 +21,22 @@ function changeImage() {
 	var photo_number = photos[Math.floor(Math.random()*photos.length)];
 	removeElement(photos, photo_number);
 	console.log(`photo ${photo_number} chosen`);
-	document.getElementById("slideshow").src = `photos/${photo_number}.jpg`;
+	document.getElementById("slideshow-web").src = `photos/${photo_number}.jpg`;
+};
+
+function changeImageMobile() {
+	document.getElementById("slideshow-mobile").src = ``;
+
+	if (photos.length == 0) {
+		photos = [].concat(backup_photos);
+		console.log(`round ${round} completed`);
+		round += 1;
+	};
+
+	var photo_number = photos[Math.floor(Math.random()*photos.length)];
+	removeElement(photos, photo_number);
+	console.log(`photo ${photo_number} chosen`);
+	document.getElementById("slideshow-mobile").src = `photos/${photo_number}.jpg`;
 };
 
 function stopAnimation() {
