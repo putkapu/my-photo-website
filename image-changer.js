@@ -1,5 +1,19 @@
-var num_of_photos = 39;
-var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
+var num_of_photos = 38;
+// for random
+// var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
+var backup_photos = [1, 6, 33, 34,
+	12, 11, 21, 
+	22, 19, 24, 8, 18, 25, 32,
+	26, 23,
+	30, 31,
+	14,
+	15, 17, 16,
+	2, 10, 
+	27, 28,
+	35, 36,
+	3, 4, 7, 37,
+	5, 38, 29,
+	9, 13, 20].reverse();
 var photos =  [].concat(backup_photos);
 var round = 1;
 removeElement(photos, 1); // remove cover photo from first round
@@ -9,34 +23,22 @@ function removeElement(array, value) {
 	array.splice(index, 1);
 };
 
-function changeImageWeb() {
-	document.getElementById("slideshow-web").src = ``;
+function changeImage(mode, element_id) {
+	document.getElementById(element_id).src = ``;
 
 	if (photos.length == 0) {
 		photos = [].concat(backup_photos);
-		console.log(`round ${round} completed`);
 		round += 1;
 	};
 
-	var photo_number = photos[Math.floor(Math.random()*photos.length)];
-	removeElement(photos, photo_number);
-	console.log(`photo ${photo_number} chosen`);
-	document.getElementById("slideshow-web").src = `photos/${photo_number}.jpg`;
-};
+	if (mode == "random") {
+		var photo_number = photos[Math.floor(Math.random()*photos.length)];
+		removeElement(photos, photo_number);
+	} else if (mode == "normal") {
+		var photo_number = photos.pop();
+	}
 
-function changeImageMobile() {
-	document.getElementById("slideshow-mobile").src = ``;
-
-	if (photos.length == 0) {
-		photos = [].concat(backup_photos);
-		console.log(`round ${round} completed`);
-		round += 1;
-	};
-
-	var photo_number = photos[Math.floor(Math.random()*photos.length)];
-	removeElement(photos, photo_number);
-	console.log(`photo ${photo_number} chosen`);
-	document.getElementById("slideshow-mobile").src = `photos/${photo_number}.jpg`;
+	document.getElementById(element_id).src = `photos/${photo_number}.jpg`;
 };
 
 function stopAnimation() {
