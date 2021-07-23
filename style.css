@@ -47,6 +47,7 @@ a {
 
 .photoMobile {
   display: none;
+  top: 3.6vh;
 }
 
 #aboutText {
