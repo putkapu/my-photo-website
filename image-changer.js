@@ -1,7 +1,7 @@
 var num_of_photos = 38;
 // for random
 // var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
-var backup_photos = [1, 6, 33, 34,
+var backup_photos = [1, 6, 33,
 	12, 11, 21, 
 	22, 19, 24, 8, 18, 25, 32,
 	26, 23,
