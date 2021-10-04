@@ -13,7 +13,8 @@ var backup_photos = [1, 6, 33,
 	35, 36,
 	3, 4, 7, 37,
 	5, 38, 29,
-	9, 13, 20].reverse();
+	9, 13, 20,
+	39, 40, 41, 42, 43, 44].reverse();
 var photos =  [].concat(backup_photos);
 var round = 1;
 removeElement(photos, 1); // remove cover photo from first round
