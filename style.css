@@ -12,7 +12,7 @@ body {
 
 h1 {
   font-family: 'MyHandwriting';
-  text-align: center;
+  text-align: left;
   font-size: 1.08em;
   line-height: 1.4;
   width: fit-content;
@@ -23,12 +23,11 @@ h1 {
 
 h2 {
   font-family: 'MyHandwriting';
-  text-align: center;
+  text-align: left;
   font-size: 0.84em;
   line-height: 1.4;
   color: grey;
   width: fit-content;
-  /*margin-left: auto;*/
   margin-right: auto;
 
 }
@@ -94,8 +93,6 @@ a {
   }
   header {
     width: 30%;
-    position: 0px;
-    /*margin-left: 0;*/
   }
   .photoWeb {
     display: none;
