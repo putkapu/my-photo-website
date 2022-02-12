@@ -93,12 +93,18 @@ a {
     display: block;
   }
   #aboutText {
-    font-size: 4vw;
-    margin-right: 8vw;
-    margin-left: 8vw;
+    font-size: 22px;
+    margin-right: 10vw;
+    margin-left: 10vw;
   }
   h1 {
-      font-size: 1.7em;
+      font-size: 42px;
+  }
+  h2 {
+      font-size: 30px;
+  }
+  header {
+    width: 80%;
   }
 }
 
