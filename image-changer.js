@@ -3,10 +3,10 @@ var num_of_photos = 38;
 // var backup_photos = Array.from({length: num_of_photos}, (x, i) => i+1);
 var backup_photos = [
 	1, 6, 33,
-	19, 2, 5, 30, 31, 10,
+    2, 30, 31, 10,
 	15, 16, 17,
-	3, 39, 40, 41, 42, 43, 44,
-	24, 27, 23, 12,
+	39, 42, 43, 44,
+	24, 27, 23, 12, 19,
 	45, 46].reverse();
 var photos =  [].concat(backup_photos);
 var round = 1;
