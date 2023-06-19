@@ -49,7 +49,7 @@ a {
   margin-left: 10vw;
   margin-right: 10vw;
   margin-top: 7vh;
-  font-size:16px;
+  font-size:18px;
   }
 .github {
     background: url('icons/github-brands.svg');
@@ -98,6 +98,7 @@ a {
   grid-gap: 10px; /* Adjust the gap between photos */
   max-width: 1000px;
   margin: 15px auto;
+  padding-top: 15px;
 }
 
 .photo-container {
