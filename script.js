@@ -18,7 +18,7 @@ photoNames.forEach(photoName => {
   const photo = document.createElement('img');
   photo.classList.add('photo');
   photo.src = `photos/${photoName}.jpg`;
-  photo.alt = `photos/${photoName}.jpg`;
+  photo.alt = "";
 
   photo.addEventListener('click', toggleFullscreen);
 
