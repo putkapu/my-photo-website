@@ -1,41 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="style.css">
-	<meta charset="UTF-8">
-	<title> &#8203;</title>
-	<meta name="description" content="Photos by Ruan Putka.">
+  <meta charset="UTF-8">
+  <meta name="description" content="Photos by Ruan Putka.">
 	<meta name="keywords" content="photography, street photography, film photography, 35 mm, brazil photography, analog photography">
 	<meta name="author" content="Ruan Putka">
 	<meta property="og:image" content="photos/1.jpg">
-	<link rel="icon" href="icons/icon-11.png">
-	<script src="jquery-3.6.0.min.js" defer></script>
-	<script src="image-changer.js" defer></script>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="icons/icon-11.png">
+  <title> &#8203;</title>
+  	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FB9B509VYN"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-FB9B509VYN');
-	</script>
 </head>
 <body>
 	<header>
-		<a href="index.html" target="_self">
-			<h1 id="buttons">Ruan</h1>
+		<a href="about.html" target="_self">
+      <h1 id="buttons">Ruan</h1>
 		</a>
-<!-- 		<a href="about.html" target="_self">
-			<h2 id="buttons">About</h2>
-		</a> -->
 	</header>
-	<main>
-		<div>
-			<img id="slideshow-web" src="photos/start-photo-web.jpg" alt="Photos by Ruan Putka."  onerror="this.style.display='none'" class="photoWeb myPhoto" onclick="changeImage('normal', 'slideshow-web')">
-			<img id="slideshow-mobile" src="photos/start-photo-mobile.jpg" alt="Photos by Ruan Putka."  onerror="this.style.display='none'" class="photoMobile myPhoto" onclick="changeImage('normal', 'slideshow-mobile')">
-		</div>
-		</div>
-	</main>
+  <div class="photo-grid" id="photoGrid">
+    <!-- Photos will be dynamically generated here -->
+  </div>
+  <script src="script.js"></script>
 </body>
-</html> 
+</html>

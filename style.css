@@ -21,22 +21,14 @@ h1 {
 
 }
 
-h2 {
-  font-family: 'MyHandwriting';
-  text-align: left;
-  font-size: 0.84em;
-  line-height: 1.4;
-  color: grey;
-  width: fit-content;
-  margin-right: auto;
-
-}
-
 h1:active {
   color: purple;
 }
-h2:active {
-  color: purple;
+
+a { 
+  color: black;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #buttons:hover {
@@ -46,69 +38,22 @@ h2:active {
   animation-direction: alternate;
 }
 
-a { 
-  color: black;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
 #emailLink {
   color: blue;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.myPhoto {
-	object-fit: contain;
-	max-height: 80vh;
-  width:100%;
-  cursor: pointer;
-  vertical-align: top;
-  -webkit-tap-highlight-color: transparent;
-  position: relative;
-  top: 2.2vh;
-}
-
-.photoMobile {
-  display: none;
-  top: 3.6vh;
-}
-
 #aboutText {
   font-family: 'Helvetica', 'Arial', sans-serif;
-  text-align: center;
-  margin-left: 20vw;
-  margin-right: 20vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
   margin-top: 7vh;
-  font-size: 1vw;
+  font-size:16px;
   }
-
-@media only screen and (max-width: 1200px) {
-  h1 {
-      font-size: 2.6em;
+.github {
+    background: url('icons/github-brands.svg');
   }
-  h2 {
-      font-size: 2em;
-  }
-  header {
-    width: 30%;
-  }
-  .photoWeb {
-    display: none;
-  }
-  .photoMobile {
-    display: block;
-  }
-  #aboutText {
-    width: 80%;
-    text-align: center;
-    font-size: 1.7em;
-    margin-right: 10vw;
-    margin-left: 10vw;
-  }
-
-}
-
 .ig {
   background: url('icons/instagram-brands.svg');
 }
@@ -118,6 +63,7 @@ a {
 .twitter {
   background: url('icons/twitter-brands.svg');
 }
+
 .social-media-icon {
   height: 2.8vh;
   width: 2.8vh;
@@ -144,4 +90,63 @@ a {
 
 .paused{
     animation-play-state: paused;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns as needed */
+  grid-gap: 10px; /* Adjust the gap between photos */
+  max-width: 1000px;
+  margin: 15px auto;
+}
+
+.photo-container {
+  position: relative;
+  padding-bottom: 100%; /* aspect ratio (change as needed) */
+}
+
+.photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* .about-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+} */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.modal-image:hover {
+  opacity: 0.9;
+}
+
+.about-link {
+  font-weight: normal;
+  color:  rgba(22, 121, 66, 0.8);
+  text-decoration: underline;
 }
