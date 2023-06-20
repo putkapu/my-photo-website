@@ -49,8 +49,18 @@ a {
   margin-left: 10vw;
   margin-right: 10vw;
   margin-top: 7vh;
-  font-size:18px;
+  font-size:16px;
   }
+
+@media (max-width: 767px) {
+    #aboutText {
+      font-size: 22px;
+    }
+    h1 {
+      font-size: 1.66em;
+    }
+  }
+
 .github {
     background: url('icons/github-brands.svg');
   }
