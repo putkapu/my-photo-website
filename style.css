@@ -13,12 +13,8 @@ body {
 h1 {
   font-family: 'MyHandwriting';
   text-align: left;
-  font-size: 1.36em;
-  line-height: 1.4;
-  width: fit-content;
-  /*margin-left: auto;*/
-  margin-right: auto;
-
+  font-size: 1.7em;
+  margin-bottom: 2em;
 }
 
 h1:active {
