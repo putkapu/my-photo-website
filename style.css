@@ -13,7 +13,7 @@ body {
 h1 {
   font-family: 'MyHandwriting';
   text-align: left;
-  font-size: 1.7em;
+  font-size: 1.4em;
   margin-bottom: 2em;
 }
 
@@ -45,15 +45,15 @@ a {
   margin-left: 10vw;
   margin-right: 10vw;
   margin-top: 7vh;
-  font-size:16px;
+  font-size:1em;
   }
 
 @media (max-width: 767px) {
     #aboutText {
-      font-size: 22px;
+      font-size: 0.6em;
     }
     h1 {
-      font-size: 1.66em;
+      font-size: 1.4em;
     }
   }
 
