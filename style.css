@@ -51,9 +51,11 @@ a {
 @media (max-width: 767px) {
     #aboutText {
       font-size: 0.6em;
+        margin-top: 5vh;
     }
     h1 {
       font-size: 1.4em;
+      margin-bottom: .65em;
     }
   }
 
