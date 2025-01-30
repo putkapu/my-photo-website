@@ -13,8 +13,8 @@ body {
 h1 {
   font-family: 'MyHandwriting';
   text-align: left;
-  font-size: 1.4em;
-  margin-bottom: 2em;
+  font-size: 1.9em;
+  margin-bottom: 0.7em;
   user-select: none; /* Impede a seleção */
   -webkit-user-select: none; /* Impede a seleção */
 }
@@ -25,12 +25,12 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-#buttons:hover {
+/* #buttons:hover {
   animation-name: shake;
   animation-duration: .5s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-}
+} */
 
 #emailLink {
   color: blue;
@@ -52,13 +52,13 @@ a {
         margin-top: 5vh;
     }
     h1 {
-      font-size: 1.4em;
-      margin-bottom: .65em;
+      font-size: 1.7em;
+      margin-bottom: .5em;
     }
   }
 
 .github {
-    background: url('icons/github-brands.svg');
+  background: url('icons/github-brands.svg');
   }
 .ig {
   background: url('icons/instagram-brands.svg');
@@ -71,13 +71,15 @@ a {
 }
 
 .social-media-icon {
-  height: 2.8vh;
-  width: 2.8vh;
+  height: 2vh;
+  width: 2vh;
   display: inline-block;
   background-repeat: no-repeat;
   background-position: center;
+  margin: 2.2px;
   /*color: rgb(99,36,177);*/
 }
+
 .social-media-container {
   justify-content: center;
   display: flex;
@@ -153,7 +155,7 @@ a {
 }
 
 .email-link {
-  font-weight: normal;
+  font-weight: bold;
   color:  rgba(22, 121, 66, 0.8);
   text-decoration: underline;
 }
@@ -165,10 +167,10 @@ html {
 
 header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
   padding: 1rem;
-  gap: 1rem;
 }
 
 #buttons {
@@ -176,12 +178,11 @@ header {
 }
 
 .about-link {
-  color: #808080;
+  color: #a0a0a0;
   text-decoration: none;
-  font-family: 'MyHandwriting';
+  font-family: 'Helvetica', 'Arial', sans-serif;
   text-align: left;
-  font-size: 1.4em;
-  margin-bottom: 2em;
+  font-size: 1.1em;
 }
 
 .about-link:hover {
