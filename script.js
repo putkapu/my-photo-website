@@ -6,8 +6,7 @@ const photoNames = [
     15, 16, 17
     ];
 
-// 2
-
+console.log('Welcome! Enjoy a cup of coffee ☕')
 const photoGrid = document.getElementById('photoGrid');
 
 // Generate photo elements dynamically
