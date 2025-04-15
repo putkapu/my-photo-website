@@ -100,8 +100,22 @@ main {
 }
 
 #aboutText {
-  margin: 7vh 10vw 0;
-  font-size: 1em;
+  margin: 15vh auto 0;  /* Increased vertical margin, auto horizontal for centering */
+  max-width: 600px;     /* Limit line length for better readability */
+  padding: 0 20px;      /* Add some padding for mobile */
+  font-size: 1.1em;     /* Slightly larger text */
+}
+
+#aboutText h2 {
+  font-size: 1.5em;
+  margin-bottom: 1.5em;
+  color: var(--secondary-text);  /* More subtle heading */
+}
+
+#aboutText p {
+  line-height: 1.8;     /* More breathing room between lines */
+  color: var(--primary-text);
+  font-weight: 300;     /* Lighter font weight for elegance */
 }
 
 .about-link {
