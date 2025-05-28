@@ -42,8 +42,8 @@ body {
 h1 {
   font-family: 'MyHandwriting', cursive;
   text-align: left;
-  font-size: 1.9em;
-  margin-bottom: 0.7em;
+  font-size: 2.8em;
+  margin-bottom: 0.8em;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -90,9 +90,10 @@ a {
 header {
   display: flex;
   flex-direction: column;
-  justify-content: left;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   padding: var(--spacing-unit);
+  width: 100%;
 }
 
 main {
