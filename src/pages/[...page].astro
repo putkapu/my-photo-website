@@ -172,7 +172,8 @@ const allPostsData = sortedPosts.map(post => ({
     return date.toLocaleDateString('pt-BR', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
+      timeZone: 'UTC'
     })
   }
 

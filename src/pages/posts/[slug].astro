@@ -16,7 +16,8 @@ const { Content } = await render(post)
 const formattedDate = post.data.date.toLocaleDateString('pt-BR', {
   year: 'numeric',
   month: 'long',
-  day: 'numeric'
+  day: 'numeric',
+  timeZone: 'UTC'
 })
 ---
 
