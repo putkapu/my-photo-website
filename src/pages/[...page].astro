@@ -303,7 +303,6 @@ const allPostsData = sortedPosts.map(post => ({
     })
   })
 
-  // Read URL param first, then fallback to localStorage
   const urlParams = new URLSearchParams(window.location.search)
   const urlTag = urlParams.get('tag')
   const validTags = Array.from(tagButtons).map(btn => btn.getAttribute('data-tag')).filter(Boolean)
@@ -312,10 +311,8 @@ const allPostsData = sortedPosts.map(post => ({
     selectedTag = urlTag
     localStorage.setItem('selectedTag', urlTag)
   } else {
-    const savedTag = localStorage.getItem('selectedTag')
-    if (savedTag) {
-      selectedTag = savedTag
-    }
+    selectedTag = 'all'
+    localStorage.removeItem('selectedTag')
   }
   
   render()
