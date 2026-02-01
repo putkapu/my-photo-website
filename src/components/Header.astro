@@ -11,6 +11,12 @@ const currentPath = Astro.url.pathname
         <a href="/" class:list={[{ active: currentPath === '/' }]}>Posts</a>
         <a href="/photos" class:list={[{ active: currentPath === '/photos' }]}>Photos</a>
       </nav>
+      <button class="search-toggle" id="searchToggle" aria-label="Search posts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"/>
@@ -41,6 +47,26 @@ const currentPath = Astro.url.pathname
     <a href="/" class:list={[{ active: currentPath === '/' }]}>Posts</a>
     <a href="/photos" class:list={[{ active: currentPath === '/photos' }]}>Photos</a>
   </nav>
+</div>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <svg class="search-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search posts..." autocomplete="off" />
+      <button class="search-close" id="searchClose" aria-label="Close search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <ul class="search-results" id="searchResults"></ul>
+    <p class="search-hint"><kbd>esc</kbd> to close</p>
+  </div>
 </div>
 
 <style>
@@ -104,14 +130,16 @@ const currentPath = Astro.url.pathname
   .nav-group {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.25rem;
   }
 
   .nav-desktop {
     display: flex;
     gap: 1.5rem;
+    margin-right: 0.5rem;
   }
 
+  .search-toggle,
   .theme-toggle {
     display: flex;
     align-items: center;
@@ -127,10 +155,12 @@ const currentPath = Astro.url.pathname
     z-index: 1001;
   }
 
+  .search-toggle:hover,
   .theme-toggle:hover {
     color: var(--primary-text);
   }
 
+  .search-toggle svg,
   .theme-toggle svg {
     width: 18px;
     height: 18px;
@@ -213,6 +243,161 @@ const currentPath = Astro.url.pathname
       display: none;
     }
   }
+
+  .search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 12vh;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .search-container {
+    width: 100%;
+    max-width: 480px;
+    padding: 0 1.5rem;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input-icon {
+    position: absolute;
+    left: 1rem;
+    width: 18px;
+    height: 18px;
+    color: var(--secondary-text);
+    pointer-events: none;
+  }
+
+  #searchInput {
+    width: 100%;
+    padding: 0.875rem 3rem;
+    font-family: inherit;
+    font-size: 1rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--primary-text);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  #searchInput:focus {
+    border-color: var(--accent-color);
+  }
+
+  #searchInput::placeholder {
+    color: var(--secondary-text);
+  }
+
+  .search-close {
+    position: absolute;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary-text);
+    transition: color 0.2s ease;
+  }
+
+  .search-close:hover {
+    color: var(--primary-text);
+  }
+
+  .search-close svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .search-results {
+    list-style: none;
+    margin-top: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .search-results li {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .search-results li:last-child {
+    border-bottom: none;
+  }
+
+  .search-results a {
+    display: block;
+    padding: 1rem 0;
+    color: var(--primary-text);
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .search-results a:hover .search-result-title {
+    color: var(--accent-color);
+  }
+
+  .search-result-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    transition: color 0.2s ease;
+  }
+
+  .search-result-excerpt {
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .search-no-results {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--secondary-text);
+  }
+
+  .search-hint {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+    opacity: 0.7;
+  }
+
+  .search-hint kbd {
+    display: inline-block;
+    padding: 0.15rem 0.4rem;
+    font-family: inherit;
+    font-size: 0.75rem;
+    background: var(--border-color);
+    border-radius: 3px;
+    margin: 0 0.15rem;
+  }
 </style>
 
 <script>
@@ -220,6 +405,11 @@ const currentPath = Astro.url.pathname
   const navOverlay = document.getElementById('navOverlay')
   const mobileLinks = document.querySelectorAll('.nav-mobile a')
   const themeToggle = document.getElementById('themeToggle')
+  const searchToggle = document.getElementById('searchToggle')
+  const searchOverlay = document.getElementById('searchOverlay')
+  const searchInput = document.getElementById('searchInput') as HTMLInputElement
+  const searchResults = document.getElementById('searchResults')
+  const searchClose = document.getElementById('searchClose')
 
   hamburger?.addEventListener('click', () => {
     const isActive = hamburger.classList.toggle('active')
@@ -237,19 +427,98 @@ const currentPath = Astro.url.pathname
     })
   })
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && navOverlay?.classList.contains('active')) {
-      hamburger?.classList.remove('active')
-      navOverlay?.classList.remove('active')
-      hamburger?.setAttribute('aria-expanded', 'false')
-      document.body.style.overflow = ''
-    }
-  })
-
   themeToggle?.addEventListener('click', () => {
     const currentTheme = document.documentElement.getAttribute('data-theme')
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
     document.documentElement.setAttribute('data-theme', newTheme)
     localStorage.setItem('theme', newTheme)
+  })
+
+  function openSearch() {
+    searchOverlay?.classList.add('active')
+    document.body.style.overflow = 'hidden'
+    setTimeout(() => searchInput?.focus(), 100)
+  }
+
+  function closeSearch() {
+    searchOverlay?.classList.remove('active')
+    document.body.style.overflow = ''
+    if (searchInput) searchInput.value = ''
+    if (searchResults) searchResults.innerHTML = ''
+  }
+
+  searchToggle?.addEventListener('click', openSearch)
+  searchClose?.addEventListener('click', closeSearch)
+
+  searchOverlay?.addEventListener('click', (e) => {
+    if (e.target === searchOverlay) closeSearch()
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (searchOverlay?.classList.contains('active')) {
+        closeSearch()
+      } else if (navOverlay?.classList.contains('active')) {
+        hamburger?.classList.remove('active')
+        navOverlay?.classList.remove('active')
+        hamburger?.setAttribute('aria-expanded', 'false')
+        document.body.style.overflow = ''
+      }
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault()
+      if (searchOverlay?.classList.contains('active')) {
+        closeSearch()
+      } else {
+        openSearch()
+      }
+    }
+  })
+
+  interface PostData {
+    title: string
+    slug: string
+    tag: string
+    excerpt: string
+  }
+
+  function getPostsData(): PostData[] {
+    const dataEl = document.getElementById('allPostsData')
+    if (!dataEl) return []
+    try {
+      return JSON.parse(dataEl.textContent || '[]')
+    } catch {
+      return []
+    }
+  }
+
+  searchInput?.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase().trim()
+    if (!searchResults) return
+
+    if (!query) {
+      searchResults.innerHTML = ''
+      return
+    }
+
+    const posts = getPostsData()
+    const filtered = posts.filter(post => 
+      post.title.toLowerCase().includes(query) || 
+      post.excerpt.toLowerCase().includes(query)
+    )
+
+    if (filtered.length === 0) {
+      searchResults.innerHTML = '<li class="search-no-results">No posts found</li>'
+      return
+    }
+
+    searchResults.innerHTML = filtered.map(post => `
+      <li>
+        <a href="/posts/${post.slug}">
+          <div class="search-result-title">${post.title}</div>
+          <div class="search-result-excerpt">${post.excerpt}${post.excerpt.length >= 120 ? '...' : ''}</div>
+        </a>
+      </li>
+    `).join('')
   })
 </script>

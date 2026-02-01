@@ -4,39 +4,96 @@ interface Props {
   slug: string
   date: Date
   tag: string
+  excerpt?: string
 }
 
-const { title, slug, date, tag } = Astro.props
+const { title, slug, date, tag, excerpt } = Astro.props
 
 const formattedDate = date.toLocaleDateString('pt-BR', {
   year: 'numeric',
   month: 'short',
   day: 'numeric'
 })
+
+const cleanExcerpt = excerpt
+  ?.replace(/^---[\s\S]*?---\s*/, '')
+  ?.replace(/\n/g, ' ')
+  ?.trim()
+  ?.slice(0, 140) || ''
 ---
 
 <article class="post-item">
-  <h2 class="post-title">
-    <a href={`/posts/${slug}`}>{title}</a>
-  </h2>
+  <div class="post-title-row">
+    <h2 class="post-title">
+      <a href={`/posts/${slug}`}>{title}</a>
+    </h2>
+    <button class="post-tag" data-filter-tag={tag}>{tag}</button>
+  </div>
+  {cleanExcerpt && (
+    <p class="post-excerpt">{cleanExcerpt}{cleanExcerpt.length >= 120 ? '...' : ''}</p>
+  )}
   <div class="post-meta">
-    <time datetime={date.toISOString()}>{formattedDate}</time>
-    <a href={`/tags/${tag}`} class="post-tag">{tag}</a>
+    <span class="post-date">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+      <time datetime={date.toISOString()}>{formattedDate}</time>
+    </span>
   </div>
 </article>
 
 <style>
+  .post-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .post-title {
+    margin: 0;
+  }
+
   .post-tag {
+    font-family: inherit;
+    font-size: 0.7rem;
+    color: var(--secondary-text);
     background: var(--border-color);
-    padding: 0.125rem 0.5rem;
+    padding: 0.1rem 0.4rem;
+    border: none;
     border-radius: 3px;
-    font-size: 0.75rem;
     text-transform: lowercase;
-    transition: background 0.2s ease;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
   }
 
   .post-tag:hover {
     background: var(--primary-text);
     color: var(--background);
+  }
+
+  .post-excerpt {
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+    margin: 0.45rem 0 0.35rem;
+    line-height: 1.4;
+  }
+
+  .post-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .post-date svg {
+    color: var(--secondary-text);
+    opacity: 0.7;
+  }
+
+  :global([data-hide-tags="true"]) .post-tag {
+    display: none;
   }
 </style>

@@ -1,0 +1,234 @@
+---
+import type { GetStaticPaths } from 'astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import PostCard from '../components/PostCard.astro'
+import { getCollection } from 'astro:content'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection('posts')
+  const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  return paginate(sortedPosts, { pageSize: 6 })
+}) satisfies GetStaticPaths
+
+const { page } = Astro.props
+const allPosts = await getCollection('posts')
+const tagOrder = ['technology', 'consciousness', 'notes']
+const uniqueTags = tagOrder.filter(tag => allPosts.some(post => post.data.tag === tag))
+
+const allPostsData = allPosts.map(post => ({
+  title: post.data.title,
+  slug: post.slug,
+  tag: post.data.tag,
+  excerpt: post.body?.replace(/^---[\s\S]*?---\s*/, '').replace(/\n/g, ' ').trim().slice(0, 120) || ''
+}))
+---
+
+<BaseLayout title="Ruan Putka">
+  <h1>Posts</h1>
+  
+  <div class="tag-filter no-transition" id="tagFilter" role="group" aria-label="Filter posts by tag">
+    <button class="tag-btn" data-tag="all">All</button>
+    {uniqueTags.map(tag => (
+      <button class="tag-btn" data-tag={tag}>{tag}</button>
+    ))}
+  </div>
+  
+  <ul class="post-list" id="postList">
+    {page.data.map((post) => (
+      <li data-tag={post.data.tag}>
+        <PostCard 
+          title={post.data.title}
+          slug={post.slug}
+          date={post.data.date}
+          tag={post.data.tag}
+          excerpt={post.body}
+        />
+      </li>
+    ))}
+  </ul>
+  
+  <p id="noResults" class="no-results" style="display: none;">No posts found with this tag.</p>
+  
+  {page.lastPage > 1 && (
+    <nav class="pagination" aria-label="Pagination">
+      {page.url.prev ? (
+        <a href={page.url.prev} class="pagination-link prev">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Prev
+        </a>
+      ) : (
+        <span class="pagination-link prev disabled">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Prev
+        </span>
+      )}
+      
+      <span class="pagination-info">{page.currentPage} / {page.lastPage}</span>
+      
+      {page.url.next ? (
+        <a href={page.url.next} class="pagination-link next">
+          Next
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      ) : (
+        <span class="pagination-link next disabled">
+          Next
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </span>
+      )}
+    </nav>
+  )}
+  
+  <script type="application/json" id="allPostsData" set:html={JSON.stringify(allPostsData)} />
+</BaseLayout>
+
+<style>
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.65rem;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .no-transition .tag-btn {
+    transition: none;
+  }
+
+  .tag-btn:hover {
+    border-color: var(--primary-text);
+    color: var(--primary-text);
+  }
+
+  .tag-btn.active {
+    background: var(--primary-text);
+    border-color: var(--primary-text);
+    color: var(--background);
+  }
+
+  .no-results {
+    color: var(--secondary-text);
+    font-style: italic;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .pagination-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .pagination-link:hover:not(.disabled) {
+    color: var(--primary-text);
+  }
+
+  .pagination-link.disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .pagination-info {
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+  }
+
+  @media (max-width: 640px) {
+    .tag-btn {
+      flex-shrink: 0;
+      padding: 0.5rem 1rem;
+      min-height: 44px;
+    }
+  }
+</style>
+
+<script>
+  const tagFilter = document.getElementById('tagFilter')
+  const tagButtons = document.querySelectorAll('.tag-btn')
+  const postList = document.getElementById('postList')
+  const postItems = document.querySelectorAll('#postList li')
+  const noResults = document.getElementById('noResults')
+
+  function applyFilter(selectedTag: string | null) {
+    if (!selectedTag) selectedTag = 'all'
+    
+    tagButtons.forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-tag') === selectedTag)
+    })
+    
+    if (postList) {
+      postList.setAttribute('data-hide-tags', selectedTag !== 'all' ? 'true' : 'false')
+    }
+    
+    let visibleCount = 0
+    
+    postItems.forEach(item => {
+      const postTag = item.getAttribute('data-tag')
+      const li = item as HTMLLIElement
+      
+      if (selectedTag === 'all' || postTag === selectedTag) {
+        li.style.display = ''
+        visibleCount++
+      } else {
+        li.style.display = 'none'
+      }
+    })
+    
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? '' : 'none'
+    }
+  }
+
+  const savedTag = localStorage.getItem('selectedTag')
+  applyFilter(savedTag)
+  requestAnimationFrame(() => {
+    tagFilter?.classList.remove('no-transition')
+  })
+
+  tagButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedTag = btn.getAttribute('data-tag')
+      localStorage.setItem('selectedTag', selectedTag || 'all')
+      applyFilter(selectedTag)
+    })
+  })
+
+  document.querySelectorAll('[data-filter-tag]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedTag = btn.getAttribute('data-filter-tag')
+      localStorage.setItem('selectedTag', selectedTag || 'all')
+      applyFilter(selectedTag)
+    })
+  })
+</script>
