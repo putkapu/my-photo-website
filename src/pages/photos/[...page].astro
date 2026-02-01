@@ -53,8 +53,6 @@ const allPhotoData = await Promise.all(
   })
 )
 
-const PAGE_SIZE = 15
-
 export const getStaticPaths = (async ({ paginate }) => {
   const allImages = import.meta.glob<{ default: ImageMetadata }>(
     '/src/assets/photos/*.jpg',
@@ -93,7 +91,7 @@ export const getStaticPaths = (async ({ paginate }) => {
     })
     .filter(Boolean)
   
-  return paginate(photoData, { pageSize: 15 })
+  return paginate(photoData, { pageSize: 12 })
 }) satisfies GetStaticPaths
 
 const { page } = Astro.props
