@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <circle cx="16" cy="16" r="10"/>
+  <circle cx="16" cy="16" r="8" fill="none" stroke-width="1.5"/>
   <style>
-    circle { fill: #1a1a1a; }
+    circle { stroke: #1a1a1a; }
     @media (prefers-color-scheme: dark) {
-      circle { fill: #e5e5e5; }
+      circle { stroke: #e5e5e5; }
     }
   </style>
 </svg>
