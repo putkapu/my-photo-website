@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string
+  slug: string
+  date: Date
+  tag: string
+}
+
+const { title, slug, date, tag } = Astro.props
+
+const formattedDate = date.toLocaleDateString('pt-BR', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+})
+---
+
+<article class="post-item">
+  <h2 class="post-title">
+    <a href={`/posts/${slug}`}>{title}</a>
+  </h2>
+  <div class="post-meta">
+    <time datetime={date.toISOString()}>{formattedDate}</time>
+    <a href={`/tags/${tag}`} class="post-tag">{tag}</a>
+  </div>
+</article>
+
+<style>
+  .post-tag {
+    background: var(--border-color);
+    padding: 0.125rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    text-transform: lowercase;
+    transition: background 0.2s ease;
+  }
+
+  .post-tag:hover {
+    background: var(--primary-text);
+    color: var(--background);
+  }
+</style>

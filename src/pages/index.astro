@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import PostCard from '../components/PostCard.astro'
+import { getCollection } from 'astro:content'
+
+const posts = await getCollection('posts')
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+const uniqueTags = [...new Set(posts.map(post => post.data.tag))].sort()
+---
+
+<BaseLayout title="Ruan Putka">
+  <h1>Posts</h1>
+  
+  <div class="tag-filter" role="group" aria-label="Filter posts by tag">
+    <button class="tag-btn active" data-tag="all">All</button>
+    {uniqueTags.map(tag => (
+      <button class="tag-btn" data-tag={tag}>{tag}</button>
+    ))}
+  </div>
+  
+  <ul class="post-list" id="postList">
+    {sortedPosts.map((post) => (
+      <li data-tag={post.data.tag}>
+        <PostCard 
+          title={post.data.title}
+          slug={post.slug}
+          date={post.data.date}
+          tag={post.data.tag}
+        />
+      </li>
+    ))}
+  </ul>
+  
+  <p id="noResults" class="no-results" style="display: none;">No posts found with this tag.</p>
+</BaseLayout>
+
+<style>
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .tag-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .tag-btn:hover {
+    border-color: var(--primary-text);
+    color: var(--primary-text);
+  }
+
+  .tag-btn.active {
+    background: var(--primary-text);
+    border-color: var(--primary-text);
+    color: var(--background);
+  }
+
+  .no-results {
+    color: var(--secondary-text);
+    font-style: italic;
+  }
+</style>
+
+<script>
+  const tagButtons = document.querySelectorAll('.tag-btn')
+  const postItems = document.querySelectorAll('#postList li')
+  const noResults = document.getElementById('noResults')
+
+  tagButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedTag = btn.getAttribute('data-tag')
+      
+      tagButtons.forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+      
+      let visibleCount = 0
+      
+      postItems.forEach(item => {
+        const postTag = item.getAttribute('data-tag')
+        const li = item as HTMLLIElement
+        
+        if (selectedTag === 'all' || postTag === selectedTag) {
+          li.style.display = ''
+          visibleCount++
+        } else {
+          li.style.display = 'none'
+        }
+      })
+      
+      if (noResults) {
+        noResults.style.display = visibleCount === 0 ? '' : 'none'
+      }
+    })
+  })
+</script>
