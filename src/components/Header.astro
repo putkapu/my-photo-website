@@ -5,18 +5,32 @@ const currentPath = Astro.url.pathname
 <header>
   <div class="header-inner container">
     <a href="/" class="site-title handwriting">Ruan</a>
-    <nav>
+    
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    
+    <nav class="nav-desktop">
       <a href="/" class:list={[{ active: currentPath === '/' }]}>Posts</a>
+      <a href="/photos" class:list={[{ active: currentPath === '/photos' }]}>Photos</a>
       <a href="/about" class:list={[{ active: currentPath === '/about' }]}>About</a>
-      <a href="/fotos" class:list={[{ active: currentPath === '/fotos' }]}>Fotos</a>
     </nav>
   </div>
 </header>
 
+<div class="nav-overlay" id="navOverlay">
+  <nav class="nav-mobile">
+    <a href="/" class:list={[{ active: currentPath === '/' }]}>Posts</a>
+    <a href="/photos" class:list={[{ active: currentPath === '/photos' }]}>Photos</a>
+    <a href="/about" class:list={[{ active: currentPath === '/about' }]}>About</a>
+  </nav>
+</div>
+
 <style>
   header {
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem 0;
   }
 
   .header-inner {
@@ -26,41 +40,149 @@ const currentPath = Astro.url.pathname
   }
 
   .site-title {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     color: var(--primary-text);
     text-decoration: none;
+    z-index: 1001;
   }
 
   .site-title:hover {
     color: var(--accent-color);
   }
 
-  nav {
-    display: flex;
-    gap: 2rem;
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
   }
 
-  nav a {
-    font-size: 0.95rem;
+  .hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--primary-text);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  .nav-desktop {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-desktop a {
+    font-size: 0.9rem;
     color: var(--secondary-text);
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
-  nav a:hover,
-  nav a.active {
+  .nav-desktop a:hover,
+  .nav-desktop a.active {
+    color: var(--primary-text);
+  }
+
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-mobile a {
+    font-size: 1.25rem;
+    color: var(--secondary-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    padding: 0.5rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-mobile a:hover,
+  .nav-mobile a.active {
     color: var(--primary-text);
   }
 
   @media (max-width: 640px) {
-    .header-inner {
-      flex-direction: column;
-      gap: 1rem;
-      align-items: flex-start;
+    .hamburger {
+      display: flex;
     }
 
-    nav {
-      gap: 1.5rem;
+    .nav-desktop {
+      display: none;
     }
   }
 </style>
+
+<script>
+  const hamburger = document.getElementById('hamburger')
+  const navOverlay = document.getElementById('navOverlay')
+  const mobileLinks = document.querySelectorAll('.nav-mobile a')
+
+  hamburger?.addEventListener('click', () => {
+    const isActive = hamburger.classList.toggle('active')
+    navOverlay?.classList.toggle('active')
+    hamburger.setAttribute('aria-expanded', isActive.toString())
+    document.body.style.overflow = isActive ? 'hidden' : ''
+  })
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger?.classList.remove('active')
+      navOverlay?.classList.remove('active')
+      hamburger?.setAttribute('aria-expanded', 'false')
+      document.body.style.overflow = ''
+    })
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navOverlay?.classList.contains('active')) {
+      hamburger?.classList.remove('active')
+      navOverlay?.classList.remove('active')
+      hamburger?.setAttribute('aria-expanded', 'false')
+      document.body.style.overflow = ''
+    }
+  })
+</script>
