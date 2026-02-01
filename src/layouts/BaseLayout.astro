@@ -8,12 +8,20 @@ interface Props {
   description?: string
 }
 
-const { title, description = "Ruan Putka - Software engineer and UX designer based in São Paulo, Brazil." } = Astro.props
+const { title, description = "Personal blog and photography by Ruan Putka. Writing about technology, consciousness, and life." } = Astro.props
 ---
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script is:inline>
+    const savedTheme = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light')
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark')
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>

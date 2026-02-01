@@ -17,6 +17,14 @@
   --spacing-unit: 1rem;
 }
 
+[data-theme="dark"] {
+  --primary-text: #e5e5e5;
+  --secondary-text: #a0a0a0;
+  --accent-color: #c0c0c0;
+  --background: #1a1a1a;
+  --border-color: #333333;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -192,16 +200,6 @@ main {
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
-}
-
-.about-content {
-  max-width: 540px;
-}
-
-.about-content p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: var(--primary-text);
 }
 
 @media (max-width: 768px) {

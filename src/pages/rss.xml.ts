@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   
   return rss({
     title: 'Ruan Putka',
-    description: 'Software engineer and UX designer based in São Paulo, Brazil.',
+    description: 'Personal blog and photography by Ruan Putka. Writing about technology, consciousness, and life.',
     site: context.site || 'https://ruanputka.com.br',
     items: sortedPosts.map((post) => ({
       title: post.data.title,
