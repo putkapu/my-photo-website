@@ -290,9 +290,19 @@ const allPostsData = sortedPosts.map(post => ({
     })
   })
 
-  const savedTag = localStorage.getItem('selectedTag')
-  if (savedTag) {
-    selectedTag = savedTag
+  // Read URL param first, then fallback to localStorage
+  const urlParams = new URLSearchParams(window.location.search)
+  const urlTag = urlParams.get('tag')
+  const validTags = Array.from(tagButtons).map(btn => btn.getAttribute('data-tag')).filter(Boolean)
+  
+  if (urlTag && validTags.includes(urlTag)) {
+    selectedTag = urlTag
+    localStorage.setItem('selectedTag', urlTag)
+  } else {
+    const savedTag = localStorage.getItem('selectedTag')
+    if (savedTag) {
+      selectedTag = savedTag
+    }
   }
   
   render()
