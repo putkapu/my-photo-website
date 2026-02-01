@@ -1,7 +1,7 @@
 ---
 title: "On Friendship"
 tag: "notes"
-date: 2026-01-29
+date: 2025-11-22
 ---
 
 From a book on friendship:

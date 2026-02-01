@@ -1,7 +1,7 @@
 ---
 title: "AI and Personality Shift"
 tag: "technology"
-date: 2023-04-11
+date: 2024-01-15
 ---
 
 AI will lower the IQ threshold required to do creative work in STEM. It will change the personality profile of technologists, making it way more diverse and biased towards artistic types.

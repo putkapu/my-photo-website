@@ -1,7 +1,7 @@
 ---
 title: "Consciousness Artistry"
 tag: "consciousness"
-date: 2024-12-24
+date: 2024-09-19
 ---
 
 I wonder what humanity will focus on in the post-enlightenment era (after ASI-facilitation).

@@ -1,7 +1,7 @@
 ---
 title: "Photography and Code"
 tag: "technology"
-date: 2024-12-22
+date: 2024-08-22
 ---
 
 Unlike natural language where many things are implied, code must spell out every detail. AI bridges this gap, you can be conversational and let it fill in the precise implementation details.

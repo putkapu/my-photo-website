@@ -1,7 +1,7 @@
 ---
 title: "Meditation Tycoon"
 tag: "notes"
-date: 2026-01-29
+date: 2025-10-05
 ---
 
 Meditation Tycoon, Roller Coaster Tycoon but you're building a meditation retreat center.

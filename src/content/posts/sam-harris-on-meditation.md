@@ -1,7 +1,7 @@
 ---
 title: "Sam Harris on Meditation"
 tag: "consciousness"
-date: 2024-12-24
+date: 2024-10-24
 ---
 
 I like that quote from Sam Harris where he says meditation isn't inherently Buddhist any more than physics is Christian.
