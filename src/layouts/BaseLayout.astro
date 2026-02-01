@@ -1,0 +1,59 @@
+---
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = "Personal blog and photography by Ruan Putka. Writing about technology, consciousness, and life." } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <script is:inline>
+    const savedTheme = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const theme = savedTheme || (prefersDark ? 'dark' : 'light')
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark')
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta name="author" content="Ruan Putka">
+  
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content="https://ruanputka.com.br/photos/1.jpg">
+  <meta property="og:url" content="https://ruanputka.com.br">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@putkapu">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content="https://ruanputka.com.br/photos/1.jpg">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="canonical" href="https://ruanputka.com.br">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="alternate" type="application/rss+xml" title="Ruan Putka RSS Feed" href="/rss.xml">
+</head>
+<body>
+  <Header />
+  <main>
+    <div class="container">
+      <slot />
+    </div>
+  </main>
+  <Footer />
+</body>
+</html>
