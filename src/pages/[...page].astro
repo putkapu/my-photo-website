@@ -1,25 +1,23 @@
 ---
 import type { GetStaticPaths } from 'astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import PostCard from '../components/PostCard.astro'
 import { getCollection } from 'astro:content'
 
-export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection('posts')
-  const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  return paginate(sortedPosts, { pageSize: 6 })
+export const getStaticPaths = (() => {
+  return [{ params: { page: undefined } }]
 }) satisfies GetStaticPaths
 
-const { page } = Astro.props
 const allPosts = await getCollection('posts')
+const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 const tagOrder = ['technology', 'consciousness', 'notes']
 const uniqueTags = tagOrder.filter(tag => allPosts.some(post => post.data.tag === tag))
 
-const allPostsData = allPosts.map(post => ({
+const allPostsData = sortedPosts.map(post => ({
   title: post.data.title,
   slug: post.slug,
   tag: post.data.tag,
-  excerpt: post.body?.replace(/^---[\s\S]*?---\s*/, '').replace(/\n/g, ' ').trim().slice(0, 120) || ''
+  date: post.data.date.toISOString(),
+  excerpt: post.body?.replace(/^---[\s\S]*?---\s*/, '').replace(/\n/g, ' ').trim().slice(0, 140) || ''
 }))
 ---
 
@@ -33,59 +31,27 @@ const allPostsData = allPosts.map(post => ({
     ))}
   </div>
   
-  <ul class="post-list" id="postList">
-    {page.data.map((post) => (
-      <li data-tag={post.data.tag}>
-        <PostCard 
-          title={post.data.title}
-          slug={post.slug}
-          date={post.data.date}
-          tag={post.data.tag}
-          excerpt={post.body}
-        />
-      </li>
-    ))}
-  </ul>
+  <ul class="post-list" id="postList"></ul>
   
   <p id="noResults" class="no-results" style="display: none;">No posts found with this tag.</p>
   
-  {page.lastPage > 1 && (
-    <nav class="pagination" aria-label="Pagination">
-      {page.url.prev ? (
-        <a href={page.url.prev} class="pagination-link prev">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Prev
-        </a>
-      ) : (
-        <span class="pagination-link prev disabled">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Prev
-        </span>
-      )}
-      
-      <span class="pagination-info">{page.currentPage} / {page.lastPage}</span>
-      
-      {page.url.next ? (
-        <a href={page.url.next} class="pagination-link next">
-          Next
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </a>
-      ) : (
-        <span class="pagination-link next disabled">
-          Next
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </span>
-      )}
-    </nav>
-  )}
+  <nav class="pagination" id="pagination" aria-label="Pagination" style="display: none;">
+    <button class="pagination-link prev" id="prevBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Prev
+    </button>
+    
+    <span class="pagination-info" id="paginationInfo">1 / 1</span>
+    
+    <button class="pagination-link next" id="nextBtn" type="button">
+      Next
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </nav>
   
   <script type="application/json" id="allPostsData" set:html={JSON.stringify(allPostsData)} />
 </BaseLayout>
@@ -145,8 +111,12 @@ const allPostsData = allPosts.map(post => ({
     align-items: center;
     gap: 0.35rem;
     font-size: 0.9rem;
+    font-family: inherit;
     color: var(--secondary-text);
     text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
     transition: color 0.2s ease;
   }
 
@@ -157,6 +127,7 @@ const allPostsData = allPosts.map(post => ({
   .pagination-link.disabled {
     opacity: 0.4;
     cursor: default;
+    pointer-events: none;
   }
 
   .pagination-info {
@@ -174,14 +145,84 @@ const allPostsData = allPosts.map(post => ({
 </style>
 
 <script>
+  interface Post {
+    title: string
+    slug: string
+    tag: string
+    date: string
+    excerpt: string
+  }
+
+  const PAGE_SIZE = 6
+  let currentPage = 1
+  let selectedTag = 'all'
+  
+  const allPostsData: Post[] = JSON.parse(document.getElementById('allPostsData')?.textContent || '[]')
   const tagFilter = document.getElementById('tagFilter')
   const tagButtons = document.querySelectorAll('.tag-btn')
   const postList = document.getElementById('postList')
-  const postItems = document.querySelectorAll('#postList li')
   const noResults = document.getElementById('noResults')
+  const pagination = document.getElementById('pagination')
+  const paginationInfo = document.getElementById('paginationInfo')
+  const prevBtn = document.getElementById('prevBtn')
+  const nextBtn = document.getElementById('nextBtn')
 
-  function applyFilter(selectedTag: string | null) {
-    if (!selectedTag) selectedTag = 'all'
+  function formatDate(dateStr: string): string {
+    const date = new Date(dateStr)
+    return date.toLocaleDateString('pt-BR', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    })
+  }
+
+  function createPostHTML(post: Post): string {
+    const formattedDate = formatDate(post.date)
+    const excerptWithEllipsis = post.excerpt.length >= 120 ? post.excerpt + '...' : post.excerpt
+    
+    return `
+      <li>
+        <article class="post-item">
+          <div class="post-title-row">
+            <h2 class="post-title">
+              <a href="/posts/${post.slug}">${post.title}</a>
+            </h2>
+            <button class="post-tag" data-filter-tag="${post.tag}">${post.tag}</button>
+          </div>
+          ${post.excerpt ? `<p class="post-excerpt">${excerptWithEllipsis}</p>` : ''}
+          <div class="post-meta">
+            <span class="post-date">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <time datetime="${post.date}">${formattedDate}</time>
+            </span>
+          </div>
+        </article>
+      </li>
+    `
+  }
+
+  function getFilteredPosts(): Post[] {
+    if (selectedTag === 'all') {
+      return allPostsData
+    }
+    return allPostsData.filter(post => post.tag === selectedTag)
+  }
+
+  function render() {
+    const filtered = getFilteredPosts()
+    const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+    
+    if (currentPage > totalPages) {
+      currentPage = Math.max(1, totalPages)
+    }
+    
+    const startIndex = (currentPage - 1) * PAGE_SIZE
+    const pagePosts = filtered.slice(startIndex, startIndex + PAGE_SIZE)
     
     tagButtons.forEach(b => {
       b.classList.toggle('active', b.getAttribute('data-tag') === selectedTag)
@@ -189,46 +230,74 @@ const allPostsData = allPosts.map(post => ({
     
     if (postList) {
       postList.setAttribute('data-hide-tags', selectedTag !== 'all' ? 'true' : 'false')
+      postList.innerHTML = pagePosts.map(post => createPostHTML(post)).join('')
+      
+      postList.querySelectorAll('[data-filter-tag]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tag = btn.getAttribute('data-filter-tag')
+          if (tag) {
+            selectedTag = tag
+            currentPage = 1
+            localStorage.setItem('selectedTag', tag)
+            render()
+          }
+        })
+      })
     }
     
-    let visibleCount = 0
-    
-    postItems.forEach(item => {
-      const postTag = item.getAttribute('data-tag')
-      const li = item as HTMLLIElement
-      
-      if (selectedTag === 'all' || postTag === selectedTag) {
-        li.style.display = ''
-        visibleCount++
-      } else {
-        li.style.display = 'none'
-      }
-    })
-    
     if (noResults) {
-      noResults.style.display = visibleCount === 0 ? '' : 'none'
+      noResults.style.display = filtered.length === 0 ? '' : 'none'
+    }
+    
+    if (pagination && paginationInfo && prevBtn && nextBtn) {
+      if (totalPages > 1) {
+        pagination.style.display = ''
+        paginationInfo.textContent = `${currentPage} / ${totalPages}`
+        
+        prevBtn.classList.toggle('disabled', currentPage <= 1)
+        nextBtn.classList.toggle('disabled', currentPage >= totalPages)
+      } else {
+        pagination.style.display = 'none'
+      }
     }
   }
 
-  const savedTag = localStorage.getItem('selectedTag')
-  applyFilter(savedTag)
-  requestAnimationFrame(() => {
-    tagFilter?.classList.remove('no-transition')
+  prevBtn?.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--
+      render()
+    }
+  })
+
+  nextBtn?.addEventListener('click', () => {
+    const filtered = getFilteredPosts()
+    const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+    if (currentPage < totalPages) {
+      currentPage++
+      render()
+    }
   })
 
   tagButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const selectedTag = btn.getAttribute('data-tag')
-      localStorage.setItem('selectedTag', selectedTag || 'all')
-      applyFilter(selectedTag)
+      const tag = btn.getAttribute('data-tag')
+      if (tag) {
+        selectedTag = tag
+        currentPage = 1
+        localStorage.setItem('selectedTag', tag)
+        render()
+      }
     })
   })
 
-  document.querySelectorAll('[data-filter-tag]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const selectedTag = btn.getAttribute('data-filter-tag')
-      localStorage.setItem('selectedTag', selectedTag || 'all')
-      applyFilter(selectedTag)
-    })
+  const savedTag = localStorage.getItem('selectedTag')
+  if (savedTag) {
+    selectedTag = savedTag
+  }
+  
+  render()
+  
+  requestAnimationFrame(() => {
+    tagFilter?.classList.remove('no-transition')
   })
 </script>
