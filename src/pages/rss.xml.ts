@@ -9,7 +9,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: 'Ruan Putka',
     description: 'Personal blog and photography by Ruan Putka. Writing about technology, consciousness, and life.',
-    site: context.site || 'https://ruanputka.com.br',
+    site: context.site || 'https://ruanputka.com',
     items: sortedPosts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.date,
