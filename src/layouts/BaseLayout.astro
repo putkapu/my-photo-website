@@ -16,8 +16,7 @@ const { title, description = "Personal blog and photography by Ruan Putka. Writi
 <head>
   <script is:inline>
     const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const theme = savedTheme || (prefersDark ? 'dark' : 'light')
+    const theme = savedTheme || 'dark'
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark')
     }
