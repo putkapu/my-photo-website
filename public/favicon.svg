@@ -1,9 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <circle cx="16" cy="16" r="6"/>
+  <polygon class="top" points="16,4 26,10 16,16 6,10"/>
+  <polygon class="left" points="6,10 16,16 16,28 6,22"/>
+  <polygon class="right" points="16,16 26,10 26,22 16,28"/>
   <style>
-    circle { fill: #888; }
+    .top { fill: #aaa; }
+    .left { fill: #888; }
+    .right { fill: #666; }
     @media (prefers-color-scheme: dark) {
-      circle { fill: #777; }
+      .top { fill: #888; }
+      .left { fill: #666; }
+      .right { fill: #444; }
     }
   </style>
 </svg>
