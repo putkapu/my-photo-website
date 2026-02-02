@@ -1,7 +1,7 @@
 ---
 title: "Vibe Coding"
 tag: "technology"
-date: 2024-12-31
+date: 2026-01-29
 ---
 
 I think vibe coding is fundamentally different from coding, it favors a different kind of person, with different strengths and personality profile. Like when photography was invented, the people who excelled weren't necessarily painters.
