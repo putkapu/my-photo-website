@@ -83,7 +83,7 @@ p {
 
 a {
   color: var(--primary-text);
-  text-decoration: underline;
+  text-decoration: none;
   transition: color 0.2s ease;
 }
 
@@ -185,6 +185,10 @@ main {
 
 .post-content p {
   margin-bottom: 1rem;
+}
+
+.post-content a {
+  text-decoration: underline;
 }
 
 .post-content blockquote {
