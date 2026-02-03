@@ -17,7 +17,7 @@ const allPostsData = sortedPosts.map(post => ({
   slug: post.slug,
   tag: post.data.tag,
   date: post.data.date.toISOString(),
-  excerpt: post.body?.replace(/^---[\s\S]*?---\s*/, '').replace(/\n/g, ' ').trim().slice(0, 140) || ''
+  excerpt: post.body?.replace(/^---[\s\S]*?---\s*/, '').replace(/<[^>]*>/g, '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 140) || ''
 }))
 ---
 

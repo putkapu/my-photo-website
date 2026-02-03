@@ -18,7 +18,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
 const cleanExcerpt = excerpt
   ?.replace(/^---[\s\S]*?---\s*/, '')
+  ?.replace(/<[^>]*>/g, '')
   ?.replace(/\n/g, ' ')
+  ?.replace(/\s+/g, ' ')
   ?.trim()
   ?.slice(0, 140) || ''
 ---
