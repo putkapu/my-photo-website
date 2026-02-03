@@ -14,8 +14,8 @@ Unity was never seen as a threat to game devs. They knew their day-to-day jobs c
 
 Devs fear AI because they see themselves as bricklayers, just translating requirements into code. But they're actually designers working at the system level, making architectural decisions that deeply shape the experience in ways PMs and product designers often can't even see.
 
-*See also**
-* **[The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)** – Famous explanation of why you can't just "hand off" a design. The underlying implementation always "leaks" through to the user, meaning the dev is the final arbiter of the experience.
-* **[The Experiential Cost of Latency](https://vwo.com/blog/how-vwo-affects-site-speed/)** – Real-world data on how system speed (and the technical choices behind it) directly dictates user conversion and retention.
-* **[The Design Stamina Hypothesis](https://martinfowler.com/bliki/DesignStaminaHypothesis.html)** – A look at how a developer's choice of modularity and system boundaries directly enables (or kills) the product team's ability to pivot or add new interactions next month.
-* **[Conway’s Law and System Design](https://en.wikipedia.org/wiki/Conway%27s_law)** – Evidence that the way we organize our code and our teams is the blueprint that determines the final user experience.
+**See also**
+* **[The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)**: Famous explanation of why you can't just "hand off" a design. The underlying implementation always "leaks" through to the user, meaning the dev is the final arbiter of the experience.
+* **[The Experiential Cost of Latency](https://vwo.com/blog/how-vwo-affects-site-speed/)**: Real-world data on how system speed (and the technical choices behind it) directly dictates user conversion and retention.
+* **[The Design Stamina Hypothesis](https://martinfowler.com/bliki/DesignStaminaHypothesis.html)**: A look at how a developer's choice of modularity and system boundaries directly enables (or kills) the product team's ability to pivot or add new interactions next month.
+* **[Conway’s Law and System Design](https://en.wikipedia.org/wiki/Conway%27s_law)**: Evidence that the way we organize our code and our teams is the blueprint that determines the final user experience.
