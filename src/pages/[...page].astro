@@ -240,7 +240,7 @@ const allPostsData = sortedPosts.map(post => ({
             selectedTag = tag
             currentPage = 1
             localStorage.setItem('selectedTag', tag)
-            updateUrlWithTag(tag)
+            updateUrl()
             render()
           }
         })
@@ -264,9 +264,25 @@ const allPostsData = sortedPosts.map(post => ({
     }
   }
 
+  function updateUrl() {
+    const url = new URL(window.location.href)
+    if (selectedTag === 'all') {
+      url.searchParams.delete('tag')
+    } else {
+      url.searchParams.set('tag', selectedTag)
+    }
+    if (currentPage <= 1) {
+      url.searchParams.delete('page')
+    } else {
+      url.searchParams.set('page', currentPage.toString())
+    }
+    history.replaceState({}, '', url)
+  }
+
   prevBtn?.addEventListener('click', () => {
     if (currentPage > 1) {
       currentPage--
+      updateUrl()
       render()
       window.scrollTo(0, 0)
     }
@@ -277,20 +293,11 @@ const allPostsData = sortedPosts.map(post => ({
     const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
     if (currentPage < totalPages) {
       currentPage++
+      updateUrl()
       render()
       window.scrollTo(0, 0)
     }
   })
-
-  function updateUrlWithTag(tag: string) {
-    const url = new URL(window.location.href)
-    if (tag === 'all') {
-      url.searchParams.delete('tag')
-    } else {
-      url.searchParams.set('tag', tag)
-    }
-    history.replaceState({}, '', url)
-  }
 
   tagButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -299,7 +306,7 @@ const allPostsData = sortedPosts.map(post => ({
         selectedTag = tag
         currentPage = 1
         localStorage.setItem('selectedTag', tag)
-        updateUrlWithTag(tag)
+        updateUrl()
         render()
       }
     })
@@ -307,6 +314,7 @@ const allPostsData = sortedPosts.map(post => ({
 
   const urlParams = new URLSearchParams(window.location.search)
   const urlTag = urlParams.get('tag')
+  const urlPage = urlParams.get('page')
   const validTags = Array.from(tagButtons).map(btn => btn.getAttribute('data-tag')).filter(Boolean)
   
   if (urlTag && validTags.includes(urlTag)) {
@@ -316,10 +324,39 @@ const allPostsData = sortedPosts.map(post => ({
     selectedTag = 'all'
     localStorage.removeItem('selectedTag')
   }
+
+  if (urlPage) {
+    const pageNum = parseInt(urlPage, 10)
+    if (!isNaN(pageNum) && pageNum >= 1) {
+      currentPage = pageNum
+    }
+  }
   
   render()
   
   requestAnimationFrame(() => {
     tagFilter?.classList.remove('no-transition')
+    
+    const scrollRestore = sessionStorage.getItem('postsListScrollRestore')
+    if (scrollRestore) {
+      const scrollY = parseInt(scrollRestore, 10)
+      if (!isNaN(scrollY)) {
+        window.scrollTo(0, scrollY)
+      }
+      sessionStorage.removeItem('postsListScrollRestore')
+    }
+  })
+
+  postList?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement
+    const link = target.closest('a[href^="/posts/"]')
+    if (link) {
+      const state = {
+        url: window.location.href,
+        scrollY: window.scrollY,
+        timestamp: Date.now()
+      }
+      sessionStorage.setItem('postsListState', JSON.stringify(state))
+    }
   })
 </script>

@@ -34,7 +34,7 @@ const formattedDate = post.data.date.toLocaleDateString('en-US', {
       <Content />
     </div>
   </article>
-  <a href="/" class="back-link">&larr; Back to posts</a>
+  <a href="/" class="back-link" id="backLink">&larr; Back to posts</a>
 </BaseLayout>
 
 <style>
@@ -49,3 +49,28 @@ const formattedDate = post.data.date.toLocaleDateString('en-US', {
     color: var(--accent-color);
   }
 </style>
+
+<script>
+  const backLink = document.getElementById('backLink') as HTMLAnchorElement | null
+  
+  if (backLink) {
+    try {
+      const stateJson = sessionStorage.getItem('postsListState')
+      if (stateJson) {
+        const state = JSON.parse(stateJson)
+        const stateAge = Date.now() - state.timestamp
+        const MAX_AGE = 30 * 60 * 1000
+        
+        if (stateAge < MAX_AGE && state.url) {
+          const stateUrl = new URL(state.url)
+          if (stateUrl.pathname === '/' || stateUrl.pathname === '') {
+            backLink.href = state.url
+            sessionStorage.setItem('postsListScrollRestore', state.scrollY.toString())
+          }
+        }
+      }
+    } catch (e) {
+      console.log('Failed to restore posts list state:', e)
+    }
+  }
+</script>
