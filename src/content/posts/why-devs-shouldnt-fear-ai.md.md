@@ -4,7 +4,7 @@ tag: "technology"
 date: 2026-02-03
 ---
 
-I think a good way to reason about where vibe coding is headed, is to look at things we build where the tools are so capable that we can focus almost entirely on the creative aspects.
+I think a good way to reason about where AI coding is headed, is to look at things we build where the tools are so capable that we can focus almost entirely on the creative aspects.
 
 Gamemaker gave us hotline miami, undertale, hyper light drifter, nuclear throne, all made by people who didn't know how to "code". Garageband gave us Grimes.
 
