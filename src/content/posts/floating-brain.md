@@ -16,6 +16,6 @@ Instead of "I feel awful in my body," it's "my mind is stuck in loops I can't in
 
 Uncontrollable sad thoughts the mind wants to push away but can't. It would have a fundamentally different texture from what we normally call feeling.
 
-This matters to me because I'm quite confident the metta I so dearly cherish is primarily emotion-as-feeling. Something genuinely felt in the body, far more decoupled from the mind's control systems (mental images, automatic thought patterns) than we typically assume.
+This matters to me because I'm quite confident the metta (loving-kindness) I value most is primarily emotion-as-feeling. Something genuinely felt in the body, far more decoupled from the mind's control systems (mental images, automatic thought patterns) than we typically assume.
 
 If the floating brain thought experiment holds, it suggests these somatic feelings aren't just epiphenomena of mental states but constitute something essential about certain emotional experiences.
