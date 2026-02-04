@@ -6,13 +6,21 @@ date: 2026-02-03
 
 I think a good way to reason about where AI coding is headed, is to look at things we build where the tools are so capable that we can focus almost entirely on the creative aspects.
 
-Gamemaker gave us hotline miami, undertale, hyper light drifter, nuclear throne, all made by people who didn't know how to "code". Garageband gave us Grimes.
+GameMaker gave us Hotline Miami, Undertale, Hyper Light Drifter, Nuclear Throne, all made by people who didn't know how to "code". GarageBand gave us Grimes.
 
 It didn't disrupt AAA games, it broadened the landscape of what games could be (middle way being something like Expedition 33 with UE or Disco Elysium).
 
 Unity was never seen as a threat to game devs. They knew their day-to-day jobs could change, but their knowledge and expertise would still be required.
 
-Devs fear AI because they see themselves as bricklayers, just translating requirements into code. But they're actually designers working at the system level, making architectural decisions that deeply shape the experience in ways PMs and product designers often can't even see.
+**So what actually changes?** Less time fighting syntax errors and boilerplate. Less googling "how to parse JSON in language X". More time on what actually matters:
+
+Choosing which internal model best represents the problem. Two implementations might produce identical behavior today, but they open up completely different sets of future possibilities. The developer is the one mapping out how different abstractions handle edge cases, failure modes, performance characteristics, and crucially, understanding how these choices ripple through to what the product can become.
+
+This is purely developer territory. A PM can't see it. A designer can't spec it. But it determines a lot.
+
+AI can write the loop. It can't choose between modeling your data as a graph versus a timeline versus a spatial hierarchy, and each choice naturally enables entirely different kinds of features down the line.
+
+Devs fear AI because they see themselves as bricklayers, just translating requirements into code. In Brazil, developers are often dismissively called "pedreiros" (bricklayers), as if we just stack code according to someone else's blueprint. But they're actually designers working at the system level, making architectural decisions that deeply shape the experience in ways PMs and product designers often can't even see.
 
 **See also**
 * **[The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)**: Famous explanation of why you can't just "hand off" a design. The underlying implementation always "leaks" through to the user, meaning the dev is the final arbiter of the experience.
