@@ -1,5 +1,5 @@
 ---
-title: "Why Devs Shouldn't Fear AI"
+title: "Stop Treating Developers Like Bricklayers"
 tag: "technology"
 date: 2026-02-03
 ---
