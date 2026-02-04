@@ -136,10 +136,14 @@ const allPostsData = sortedPosts.map(post => ({
   }
 
   @media (max-width: 640px) {
+    .tag-filter {
+      gap: 0.35rem;
+    }
+
     .tag-btn {
       flex-shrink: 0;
-      padding: 0.5rem 1rem;
-      min-height: 44px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.75rem;
     }
   }
 </style>
