@@ -4,7 +4,7 @@ tag: "consciousness"
 date: 2026-01-30
 ---
 
-I've been working through a thought experiment after a jhana sit: 
+I've been working through a thought experiment after a meditation / jhana sit: 
 
 If a human brain were kept alive with zero sensory or bodily input/output (a floating brain) could it still feel emotions, or would it only have thoughts?
 
