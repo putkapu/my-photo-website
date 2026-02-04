@@ -16,9 +16,15 @@ Unity was never seen as a threat to game devs. They knew their day-to-day jobs c
 
 Choosing which internal model best represents the problem. Two implementations might produce identical behavior today, but they open up completely different sets of future possibilities. The developer is the one mapping out how different abstractions handle edge cases, failure modes, performance characteristics, and crucially, understanding how these choices ripple through to what the product can become.
 
-This is purely developer territory. A PM can't see it. A designer can't spec it. But it determines a lot.
-
 AI can write the loop. It can't choose between modeling your data as a graph versus a timeline versus a spatial hierarchy, and each choice naturally enables entirely different kinds of features down the line.
+
+Imagine a developer building a game engine and the game is simple, you only need light. You can model light as a cheap abstraction, a sphere that emits a few rays, bumps brightness on the surfaces it hits, and fakes the rest. Or you can model light as a physical system: many rays bouncing, materials interacting, global illumination. Today the surfaces are simple and both models ship the same game, indistinguishable. But one choice makes it possible to reuse the engine for a GTA-scale world later, while the other makes it portable to something like the Switch. There's no universally correct answer. But that decision defines the space of possible products you can build next.
+
+Those choices can also create emergent behavior no designer or PM was even aware of. Imagine that with one of these models, players can discover a camera angle where hidden paths become visible because the light produces a distinctive specular highlight at grazing angles.
+
+Now imagine the jump. A designer can spec “floaty” or “snappy.” But the actual feel is decided in code: coyote time, input buffering, variable jump height, acceleration curves, friction, animation timing, camera lag. The developer iterates those knobs until it feels right, and that isn’t “implementation.” That is the experience. These choices become aesthetics.
+
+This is purely developer territory. A PM can't see it. A designer can't spec it. But it determines a lot.
 
 Devs fear AI because they see themselves as bricklayers, just translating requirements into code. In Brazil, developers are often dismissively called "pedreiros" (bricklayers), as if we just stack code according to someone else's blueprint. But they're actually designers working at the system level, making architectural decisions that deeply shape the experience in ways PMs and product designers often can't even see.
 
