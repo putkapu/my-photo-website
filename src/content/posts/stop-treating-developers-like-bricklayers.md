@@ -12,7 +12,7 @@ It didn't disrupt AAA games, it broadened the landscape of what games could be (
 
 Unity was never seen as a threat to game devs. They knew their day-to-day jobs could change, but their knowledge and expertise would still be required.
 
-**So what actually changes?** Less time fighting syntax errors and boilerplate. Less googling "how to parse JSON in language X". More time on what actually matters:
+**So what actually changes?** Less time fighting syntax errors and boilerplate. Less googling and even chatting with AI. Less specific knowledge of tools. More time on what actually matters:
 
 Choosing which internal model best represents the problem. Two implementations might produce identical behavior today, but they open up completely different sets of future possibilities. The developer is the one mapping out how different abstractions handle edge cases, failure modes, performance characteristics, and crucially, understanding how these choices ripple through to what the product can become.
 
