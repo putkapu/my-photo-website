@@ -18,13 +18,17 @@ Choosing which internal model best represents the problem. Two implementations m
 
 AI can write the loop. It can't choose between modeling your data as a graph versus a timeline versus a spatial hierarchy, and each choice naturally enables entirely different kinds of features down the line.
 
-Imagine a developer building a game engine and the game is simple, you only need light. You can model light as a cheap abstraction, a sphere that emits a few rays, bumps brightness on the surfaces it hits, and fakes the rest. Or you can model light as a physical system: many rays bouncing, materials interacting, global illumination. Today the surfaces are simple and both models ship the same game, indistinguishable. But one choice makes it possible to reuse the engine for a GTA-scale world later, while the other makes it portable to something like the Switch. There's no universally correct answer. But that decision defines the space of possible products you can build next.
+Imagine a developer building a game engine and the game is simple, you only need light. You can model light as a cheap abstraction, a sphere that emits a few rays, bumps brightness on the surfaces it hits, and fakes the rest. Or you can model light as a physical system: many rays bouncing, materials interacting, global illumination. Today the surfaces are simple and both models ship the same game, indistinguishable. But one choice makes it portable to something like the Switch, while the other makes it possible to reuse the engine for a GTA-scale world later. There's no universally correct answer. But that decision defines the space of possible games you can build next.
 
 Those choices can also create emergent behavior no designer or PM was even aware of. Imagine that with one of these models, players can discover a camera angle where hidden paths become visible because the light produces a distinctive specular highlight at grazing angles.
 
-Now imagine the jump. A designer can spec “floaty” or “snappy.” But the actual feel is decided in code: coyote time, input buffering, variable jump height, acceleration curves, friction, animation timing, camera lag. The developer iterates those knobs until it feels right, and that isn’t “implementation.” That is the experience. These choices become aesthetics.
+Now imagine the jump. A designer can spec "floaty" or "snappy," and they'll iterate with the developer, tweaking values until it feels right. But the developer is the one who built the system that makes those tweaks possible in the first place: exposing coyote time as a tunable parameter, designing the input buffering architecture, creating the acceleration curve system.
 
-This is purely developer territory. A PM can't see it. A designer can't spec it. But it determines a lot.
+And beyond what's being explicitly tested, the developer makes dozens of adjacent decisions that shape the feel but never make it into a spec: how the camera catches up when you land, whether animation blending respects or overrides physics, how friction interacts with slopes, the frame delay between input and visual feedback. These aren't implementation details. They're aesthetic decisions that determine how the game feels, made in a space where designers and PMs often can't see it.
+
+This is developer territory. Not because others can't participate in tuning, but because the developer designs the possibility space itself. What can even be adjusted, how systems interact, and all the invisible technical choices that accumulate into the experience.
+
+Game engines make this easier to see, but the same is true for any complex software system.
 
 Devs fear AI because they see themselves as bricklayers, just translating requirements into code. In Brazil, developers are often dismissively called "pedreiros" (bricklayers), as if we just stack code according to someone else's blueprint. But they're actually designers working at the system level, making architectural decisions that deeply shape the experience in ways PMs and product designers often can't even see.
 
