@@ -30,7 +30,7 @@ This is developer territory. Not because others can't participate in tuning, but
 
 Game engines make this easier to see, but the same is true for any complex software system.
 
-Devs fear AI because they see themselves as bricklayers, just translating requirements into code. In Brazil, developers are often dismissively called "pedreiros" (bricklayers), as if we just stack code according to someone else's blueprint. But they're actually designers working at the system level, making architectural decisions that deeply shape the experience in ways PMs and product designers often can't even see.
+Devs fear AI because they see themselves as bricklayers, just translating requirements into code. In Brazil, developers are often dismissively called "pedreiros" (bricklayers), as if we just stack code according to someone else's blueprint. But they're actually designers working at the system level, making architectural decisions that deeply shape the experience.
 
 **See also**
 * **[The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)**: Famous explanation of why you can't just "hand off" a design. The underlying implementation always "leaks" through to the user, meaning the dev is the final arbiter of the experience.
