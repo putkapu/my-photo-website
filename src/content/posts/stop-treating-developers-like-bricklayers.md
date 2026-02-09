@@ -8,15 +8,19 @@ I think a good way to reason about where AI coding is headed, is to look at thin
 
 GameMaker gave us Hotline Miami, Undertale, Hyper Light Drifter, Nuclear Throne, all made by people who didn't know how to "code". GarageBand gave us Grimes.
 
-It didn't disrupt AAA games, it broadened the landscape of what games could be (middle way being something like Expedition 33 with UE or Disco Elysium).
+These tools didn't destroy AAA studios. They expanded the landscape. The ceiling didn't collapse, the floor lowered. In games, the middle ground flourished too, something like Expedition 33 in Unreal Engine or Disco Elysium.
 
-Unity was never seen as a threat to game devs. They knew their day-to-day jobs could change, but their knowledge and expertise would still be required.
+Unity was never seen as a threat to game developers. It lowered the barrier to entry and broadened who could participate, but it didn't eliminate the need for experienced developers. People understood their day-to-day tasks might change, but their judgment and expertise would still be required.
 
-So what actually changes? Less time fighting syntax errors and boilerplate. Less googling and even chatting with AI. Less specific knowledge of tools. More time on what actually matters:
+AI coding introduces a similar split effect. For people who don't code, it enables entirely new kinds of creators (designers, founders, hobbyists) to build things that previously required a team.
 
-Choosing which internal model best represents the problem. Two implementations might produce identical behavior today, but they open up completely different sets of future possibilities. The developer is the one mapping out how different abstractions handle edge cases, failure modes, performance characteristics, and crucially, understanding how these choices ripple through to what the product can become.
+For people who already code, it doesn't remove the work. It changes its center of gravity.
 
-AI can write the loop. It can't choose between modeling your data as a graph versus a timeline versus a spatial hierarchy, and each choice naturally enables entirely different kinds of features down the line.
+Less time fighting syntax errors and boilerplate. Less googling. Even less “chatting with AI” about implementation details. Less emphasis on memorizing tool quirks.
+
+More emphasis on modeling, architecture, and defining the system in which the code lives. These decisions shape the experience directly. AI may become extremely good at evaluating structures and predicting outcomes. But unless it genuinely shares the kind of lived experience the product is designed for, delegating those decisions entirely would mean outsourcing the very layer where experience is defined. And experience is the one thing we likely want to keep authored by those who actually undergo it.
+
+AI can write the loop. It can even suggest different ways to model your data, as a graph, a timeline, or a spatial hierarchy. But each of those models commits you to a different future. They enable different kinds of features, different performance characteristics, different failure modes. Someone has to decide which future is worth building toward.
 
 Imagine a developer building a game engine and the game is simple, you only need light. You can model light as a cheap abstraction, a sphere that emits a few rays, bumps brightness on the surfaces it hits, and fakes the rest. Or you can model light as a physical system: many rays bouncing, materials interacting, global illumination. Today the surfaces are simple and both models ship the same game, indistinguishable. But one choice makes it portable to something like the Switch, while the other makes it possible to reuse the engine for a GTA-scale world later. There's no universally correct answer. But that decision defines the space of possible games you can build next.
 
