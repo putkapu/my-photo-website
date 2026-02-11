@@ -1,5 +1,5 @@
 ---
-title: "A way I understand \"Seeing That Frees\""
+title: "A way I understand Rob Burbea's \"Seeing That Frees\""
 tag: "consciousness"
 date: 2025-06-11
 ---
