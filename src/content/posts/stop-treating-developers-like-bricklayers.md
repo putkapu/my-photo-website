@@ -18,7 +18,7 @@ For people who already code, it doesn't remove the work. It changes its center o
 
 Less time fighting syntax errors and boilerplate. Less googling. Even less “chatting with AI” about implementation details. Less emphasis on memorizing tool quirks.
 
-More emphasis on modeling, architecture, and defining the system in which the code lives. These decisions shape the experience directly. AI may become extremely good at evaluating structures and predicting outcomes. But unless it genuinely shares the kind of lived experience the product is designed for, delegating those decisions entirely would mean outsourcing the very layer where experience is defined. And experience is the one thing we likely want to keep authored by those who actually undergo it.
+More emphasis on modeling, architecture, and defining the system in which the code lives. These decisions shape the experience directly. AI may become extremely good at evaluating structures and predicting outcomes. But unless it genuinely shares the kind of lived experience the product is designed for, delegating those decisions entirely would mean outsourcing the very layer where experience is defined. And experience is the one thing we likely want to keep authored by those who actually undergo it, at least in software where experience itself is the value being created.
 
 AI can write the loop. It can even suggest different ways to model your data, as a graph, a timeline, or a spatial hierarchy. But each of those models commits you to a different future. They enable different kinds of features, different performance characteristics, different failure modes. Someone has to decide which future is worth building toward.
 
