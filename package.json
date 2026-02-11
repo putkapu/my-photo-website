@@ -6,7 +6,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-favicons": "node scripts/generate-favicons.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.3",
+    "to-ico": "^1.1.5"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.15",
