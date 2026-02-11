@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
+import { stripMarkdown } from '../utils/markdown'
 
 export const getStaticPaths = (() => {
   return [{ params: { page: undefined } }]
@@ -12,13 +13,17 @@ const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.
 const tagOrder = ['technology', 'consciousness', 'notes']
 const uniqueTags = tagOrder.filter(tag => allPosts.some(post => post.data.tag === tag))
 
-const allPostsData = sortedPosts.map(post => ({
-  title: post.data.title,
-  slug: post.slug,
-  tag: post.data.tag,
-  date: post.data.date.toISOString(),
-  excerpt: post.body?.replace(/^---[\s\S]*?---\s*/, '').replace(/<[^>]*>/g, '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 140) || ''
-}))
+const allPostsData = sortedPosts.map(post => {
+  const cleanExcerpt = stripMarkdown(post.body || '')
+
+  return {
+    title: post.data.title,
+    slug: post.slug,
+    tag: post.data.tag,
+    date: post.data.date.toISOString(),
+    excerpt: cleanExcerpt.slice(0, 140)
+  }
+})
 ---
 
 <BaseLayout title="Ruan Putka">
