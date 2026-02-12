@@ -1,5 +1,5 @@
 ---
-title: "From Finite Tech to Continuous Extraction"
+title: "The Tech We Lost"
 tag: "technology"
 date: 2026-02-12
 ---
