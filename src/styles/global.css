@@ -220,6 +220,39 @@ main {
   margin-bottom: 0;
 }
 
+.post-content table {
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 1.5rem 0;
+  width: calc(100vw - 48px);
+  max-width: 600px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.post-content th,
+.post-content td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+  vertical-align: top;
+}
+
+.post-content th {
+  font-weight: 600;
+  background: var(--border-color);
+}
+
+.post-content tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .post-content tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
 .post-header {
   margin-bottom: 1.5rem;
 }
